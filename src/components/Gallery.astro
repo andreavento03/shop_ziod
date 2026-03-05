@@ -2,22 +2,34 @@
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-let photos: string[] = [];
-try {
-  const dir = join(process.cwd(), 'public', 'clothes');
-  photos = readdirSync(dir)
-    .filter((f: string) => /\.(jpg|jpeg|png|webp)$/i.test(f))
-    .sort()
-    .map((f: string) => `/clothes/${encodeURIComponent(f)}`);
-} catch {
-  photos = [];
-}
+const categories = [
+  { id: 'abiti',     label: 'Abiti & Vestiti',   sub: 'Capi eleganti e da cerimonia' },
+  { id: 'camicie',   label: 'Camicie & Top',      sub: 'Leggerezza e stile quotidiano' },
+  { id: 'pantaloni', label: 'Pantaloni & Gonne',  sub: 'Linee pulite per ogni occasione' },
+  { id: 'accessori', label: 'Accessori',           sub: 'I dettagli che fanno la differenza' },
+];
+
+const gallery = categories.map(cat => {
+  const dir = join(process.cwd(), 'public', 'clothes', cat.id);
+  let photos: string[] = [];
+  try {
+    photos = readdirSync(dir)
+      .filter((f: string) => /\.(jpg|jpeg|png|webp)$/i.test(f))
+      .sort()
+      .map((f: string) => `/clothes/${cat.id}/${encodeURIComponent(f)}`);
+  } catch { /* folder empty or missing */ }
+  return { ...cat, photos };
+});
+
+// flat list for lightbox navigation
+const allPhotos = gallery.flatMap(g => g.photos);
 ---
 
-<section id="collezione" class="bg-white py-24 md:py-36 px-6">
+<section id="collezione" class="bg-white py-24 md:py-32 px-6">
   <div class="max-w-7xl mx-auto">
 
-    <div class="text-center mb-16">
+    <!-- Heading -->
+    <div class="text-center mb-12">
       <p class="text-turquoise text-xs tracking-[0.35em] uppercase mb-4 font-light">Le Nostre Creazioni</p>
       <h2 class="text-navy" style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem);">
         La Collezione
@@ -25,31 +37,63 @@ try {
       <div class="w-12 h-px bg-turquoise mx-auto mt-6"></div>
     </div>
 
-    {photos.length === 0 ? (
-      <p class="text-center text-gray-400 font-light py-20">La collezione è in arrivo...</p>
-    ) : (
-      <div id="gallery-grid" class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-3">
-        {photos.map((photo, i) => (
-          <div
-            class="break-inside-avoid mb-3 overflow-hidden rounded-lg cursor-pointer group relative"
-            data-photo={photo}
-            data-index={String(i)}
-          >
-            <img
-              src={photo}
-              alt={`Creazione ${i + 1}`}
-              loading="lazy"
-              class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div class="absolute inset-0 bg-navy/0 group-hover:bg-navy/20 transition-all duration-300 rounded-lg flex items-center justify-center">
-              <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-              </svg>
-            </div>
+    <!-- Category tabs -->
+    <div class="flex flex-wrap justify-center gap-2 mb-14" id="tab-bar">
+      <button
+        class="tab-btn active px-6 py-2 text-xs tracking-[0.2em] uppercase font-light border transition-all duration-200"
+        data-target="all"
+      >Tutti</button>
+      {categories.map(cat => (
+        <button
+          class="tab-btn px-6 py-2 text-xs tracking-[0.2em] uppercase font-light border transition-all duration-200"
+          data-target={cat.id}
+        >{cat.label}</button>
+      ))}
+    </div>
+
+    <!-- Sections -->
+    {gallery.map(cat => (
+      <div class="gallery-section mb-20" data-section={cat.id}>
+        <div class="flex items-end gap-4 mb-6">
+          <div>
+            <h3 class="text-navy text-xl md:text-2xl" style="font-family: 'Playfair Display', serif; font-style: italic;">{cat.label}</h3>
+            <p class="text-gray-400 text-xs tracking-wider mt-1 font-light">{cat.sub}</p>
           </div>
-        ))}
+          <div class="flex-1 h-px bg-navy/10 mb-2"></div>
+          <span class="text-gray-300 text-xs font-light mb-2">{cat.photos.length} capi</span>
+        </div>
+
+        {cat.photos.length === 0 ? (
+          <p class="text-gray-300 text-sm font-light py-8">In arrivo...</p>
+        ) : (
+          <div
+            class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-3"
+            data-gallery={cat.id}
+          >
+            {cat.photos.map((photo, i) => (
+              <div
+                class="break-inside-avoid mb-3 overflow-hidden rounded-lg cursor-pointer group relative"
+                data-photo={photo}
+                data-index={String(allPhotos.indexOf(photo))}
+              >
+                <img
+                  src={photo}
+                  alt={`${cat.label} ${i + 1}`}
+                  loading="lazy"
+                  class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-navy/0 group-hover:bg-navy/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                  <svg class="w-7 h-7 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-    )}
+    ))}
+
   </div>
 </section>
 
@@ -60,54 +104,64 @@ try {
   style="display: none; background: rgba(5, 15, 35, 0.96);"
 >
   <div class="relative flex items-center justify-center w-full h-full px-16 py-12" id="lb-backdrop">
-    <!-- Close button -->
-    <button
-      id="lb-close"
-      class="absolute top-5 right-5 text-white/60 hover:text-white transition-colors z-10"
-      aria-label="Chiudi"
-    >
+    <button id="lb-close" class="absolute top-5 right-5 text-white/60 hover:text-white transition-colors z-10" aria-label="Chiudi">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
-
-    <!-- Prev -->
-    <button
-      id="lb-prev"
-      class="absolute left-4 md:left-6 text-white/50 hover:text-white transition-colors z-10"
-      aria-label="Precedente"
-    >
+    <button id="lb-prev" class="absolute left-4 md:left-6 text-white/50 hover:text-white transition-colors z-10" aria-label="Precedente">
       <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
       </svg>
     </button>
-
-    <!-- Image -->
-    <img
-      id="lb-img"
-      src=""
-      alt=""
-      class="max-w-full max-h-full object-contain rounded shadow-2xl"
-      style="max-height: 85vh; max-width: 80vw;"
-    />
-
-    <!-- Next -->
-    <button
-      id="lb-next"
-      class="absolute right-4 md:right-6 text-white/50 hover:text-white transition-colors z-10"
-      aria-label="Successivo"
-    >
+    <img id="lb-img" src="" alt="" class="max-w-full max-h-full object-contain rounded shadow-2xl" style="max-height: 85vh; max-width: 80vw;" />
+    <button id="lb-next" class="absolute right-4 md:right-6 text-white/50 hover:text-white transition-colors z-10" aria-label="Successivo">
       <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
       </svg>
     </button>
-
-    <!-- Counter -->
     <div class="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/40 text-sm font-light" id="lb-counter"></div>
   </div>
 </div>
 
-<script define:vars={{ photos }}>
+<style>
+  .tab-btn {
+    color: #1B3A6B;
+    border-color: #1B3A6B20;
+    background: transparent;
+  }
+  .tab-btn:hover {
+    border-color: #5CE5CB;
+    color: #1B3A6B;
+  }
+  .tab-btn.active {
+    background: #1B3A6B;
+    color: white;
+    border-color: #1B3A6B;
+  }
+</style>
+
+<script define:vars={{ allPhotos }}>
+  // --- Tabs ---
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.gallery-section');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.target;
+      sections.forEach(sec => {
+        if (target === 'all' || sec.dataset.section === target) {
+          sec.style.display = '';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // --- Lightbox ---
   const lightbox = document.getElementById('lightbox');
   const lbImg = document.getElementById('lb-img');
   const lbCounter = document.getElementById('lb-counter');
@@ -115,8 +169,8 @@ try {
 
   function openLightbox(idx) {
     current = idx;
-    lbImg.src = photos[current];
-    lbCounter.textContent = `${current + 1} / ${photos.length}`;
+    lbImg.src = allPhotos[current];
+    lbCounter.textContent = `${current + 1} / ${allPhotos.length}`;
     lightbox.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
@@ -128,28 +182,24 @@ try {
   }
 
   function navigate(dir) {
-    current = (current + dir + photos.length) % photos.length;
-    lbImg.src = photos[current];
-    lbCounter.textContent = `${current + 1} / ${photos.length}`;
+    current = (current + dir + allPhotos.length) % allPhotos.length;
+    lbImg.src = allPhotos[current];
+    lbCounter.textContent = `${current + 1} / ${allPhotos.length}`;
   }
 
-  // Gallery click
-  document.getElementById('gallery-grid')?.addEventListener('click', (e) => {
+  document.getElementById('collezione').addEventListener('click', (e) => {
     const card = e.target.closest('[data-index]');
     if (card) openLightbox(parseInt(card.dataset.index));
   });
 
-  // Controls
   document.getElementById('lb-close')?.addEventListener('click', closeLightbox);
   document.getElementById('lb-prev')?.addEventListener('click', () => navigate(-1));
   document.getElementById('lb-next')?.addEventListener('click', () => navigate(1));
 
-  // Close on backdrop click
   document.getElementById('lb-backdrop')?.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) closeLightbox();
   });
 
-  // Keyboard
   document.addEventListener('keydown', (e) => {
     if (lightbox.style.display !== 'flex') return;
     if (e.key === 'Escape') closeLightbox();
