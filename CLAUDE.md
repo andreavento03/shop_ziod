@@ -1,7 +1,7 @@
-# Solino Mare — Project Guide for Claude
+# Emporio Filitalia — Project Guide for Claude
 
 ## What this is
-A static boutique website for **Solino Mare**, a clothing shop in Gaeta owned by Domenico Solino.
+A static boutique website for **Emporio Filitalia**, a clothing shop in Gaeta owned by Domenico Solino.
 Mediterranean/Positano aesthetic. Built with Astro 5 + Tailwind CSS v4.
 
 ## Stack

@@ -1,31 +1,32 @@
 ---
 ---
 <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background -->
-  <div class="absolute inset-0" style="background: linear-gradient(160deg, #0a1a3a 0%, #1B3A6B 45%, #1a527a 100%);"></div>
+  <!-- Background photo -->
+  <img
+    src="/clothes/abiti/item-001.jpeg"
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover object-center"
+  />
 
-  <!-- Subtle dot grid overlay -->
-  <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 40px 40px;"></div>
-
-  <!-- Decorative anchors -->
-  <div class="absolute top-24 left-8 md:left-16 text-white/[0.06] select-none pointer-events-none" style="font-size: clamp(60px, 10vw, 120px);">⚓</div>
-  <div class="absolute bottom-32 right-8 md:right-20 text-white/[0.04] select-none pointer-events-none" style="font-size: clamp(40px, 7vw, 90px);">⚓</div>
+  <!-- Warm dark overlay for legibility -->
+  <div class="absolute inset-0" style="background: linear-gradient(160deg, rgba(10,5,2,0.72) 0%, rgba(20,10,4,0.55) 55%, rgba(10,5,2,0.65) 100%);"></div>
 
   <!-- Content -->
   <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
-    <p class="text-turquoise text-xs tracking-[0.4em] uppercase mb-6 font-light">Gaeta &nbsp;·&nbsp; Boutique Artigianale</p>
+    <p class="text-xs tracking-[0.4em] uppercase mb-6 font-light" style="color: #D4B896;">Gaeta &nbsp;·&nbsp; Boutique Artigianale</p>
 
-    <h1 class="text-white leading-none mb-6" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: clamp(3.5rem, 10vw, 7rem);">
-      Solino Mare
+    <h1 class="text-white leading-none mb-6" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: clamp(3.5rem, 10vw, 7rem); text-shadow: 0 2px 24px rgba(0,0,0,0.4);">
+      Emporio Filitalia
     </h1>
 
     <div class="flex items-center justify-center gap-4 mb-6">
-      <div class="h-px w-16 bg-turquoise/60"></div>
-      <span class="text-turquoise/60 text-base">⚓</span>
-      <div class="h-px w-16 bg-turquoise/60"></div>
+      <div class="h-px w-16" style="background: rgba(212,184,150,0.5);"></div>
+      <span class="text-base" style="color: rgba(212,184,150,0.6);">⚓</span>
+      <div class="h-px w-16" style="background: rgba(212,184,150,0.5);"></div>
     </div>
 
-    <p class="text-white/60 text-sm md:text-base tracking-[0.25em] uppercase font-light mb-12">
+    <p class="text-white/70 text-sm md:text-base tracking-[0.25em] uppercase font-light mb-12">
       Eleganza sul Mare
     </p>
 
