@@ -1,0 +1,86 @@
+---
+---
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <a href="/" class="text-2xl text-white transition-colors duration-300" id="logo" style="font-family: 'Playfair Display', serif; font-style: italic; letter-spacing: 0.02em;">
+      Solino Mare
+    </a>
+
+    <nav class="hidden md:flex items-center gap-10">
+      <a href="#home" class="nav-link text-white/90 hover:text-turquoise transition-colors duration-200 text-xs tracking-[0.2em] uppercase font-light">Home</a>
+      <a href="#collezione" class="nav-link text-white/90 hover:text-turquoise transition-colors duration-200 text-xs tracking-[0.2em] uppercase font-light">Collezione</a>
+      <a href="#contatti" class="nav-link text-white/90 hover:text-turquoise transition-colors duration-200 text-xs tracking-[0.2em] uppercase font-light">Contatti</a>
+    </nav>
+
+    <button id="menu-btn" class="md:hidden text-white p-1" aria-label="Menu">
+      <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-navy border-t border-white/10">
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <a href="#home" class="text-white/80 hover:text-turquoise transition-colors text-sm tracking-widest uppercase font-light">Home</a>
+      <a href="#collezione" class="text-white/80 hover:text-turquoise transition-colors text-sm tracking-widest uppercase font-light">Collezione</a>
+      <a href="#contatti" class="text-white/80 hover:text-turquoise transition-colors text-sm tracking-widest uppercase font-light">Contatti</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  #header.scrolled {
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 24px rgba(27, 58, 107, 0.08);
+    padding-top: 0;
+  }
+  #header.scrolled #logo {
+    color: #1B3A6B;
+  }
+  #header.scrolled .nav-link {
+    color: #1B3A6B;
+    opacity: 0.8;
+  }
+  #header.scrolled .nav-link:hover {
+    color: #5CE5CB;
+    opacity: 1;
+  }
+  #header.scrolled #menu-btn {
+    color: #1B3A6B;
+  }
+</style>
+
+<script>
+  const header = document.getElementById('header')!;
+  const menuBtn = document.getElementById('menu-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const iconOpen = document.getElementById('icon-open')!;
+  const iconClose = document.getElementById('icon-close')!;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden', !isOpen);
+    iconClose.classList.toggle('hidden', isOpen);
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+</script>

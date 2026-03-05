@@ -1,0 +1,54 @@
+---
+---
+<section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0" style="background: linear-gradient(160deg, #0a1a3a 0%, #1B3A6B 45%, #1a527a 100%);"></div>
+
+  <!-- Subtle dot grid overlay -->
+  <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+  <!-- Decorative anchors -->
+  <div class="absolute top-24 left-8 md:left-16 text-white/[0.06] select-none pointer-events-none" style="font-size: clamp(60px, 10vw, 120px);">⚓</div>
+  <div class="absolute bottom-32 right-8 md:right-20 text-white/[0.04] select-none pointer-events-none" style="font-size: clamp(40px, 7vw, 90px);">⚓</div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
+    <p class="text-turquoise text-xs tracking-[0.4em] uppercase mb-6 font-light">Gaeta &nbsp;·&nbsp; Boutique Artigianale</p>
+
+    <h1 class="text-white leading-none mb-6" style="font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: clamp(3.5rem, 10vw, 7rem);">
+      Solino Mare
+    </h1>
+
+    <div class="flex items-center justify-center gap-4 mb-6">
+      <div class="h-px w-16 bg-turquoise/60"></div>
+      <span class="text-turquoise/60 text-base">⚓</span>
+      <div class="h-px w-16 bg-turquoise/60"></div>
+    </div>
+
+    <p class="text-white/60 text-sm md:text-base tracking-[0.25em] uppercase font-light mb-12">
+      Eleganza sul Mare
+    </p>
+
+    <a
+      href="#collezione"
+      class="inline-block border border-white/30 text-white/90 text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-white hover:text-navy transition-all duration-400 font-light"
+    >
+      Scopri la Collezione
+    </a>
+  </div>
+
+  <!-- Animated scroll indicator -->
+  <div class="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+    <div class="w-px h-10 bg-white/20"></div>
+    <svg class="w-4 h-4 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+
+  <!-- Wave transition to About -->
+  <div class="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" class="w-full" style="height: 80px; display: block;" fill="#F5F0E8">
+      <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" />
+    </svg>
+  </div>
+</section>
