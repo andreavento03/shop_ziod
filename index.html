@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziod – Abbigliamento</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">ZIOD</div>
+                <nav class="nav">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#collezione" class="nav-link">Collezione</a>
+                    <a href="#contatti" class="nav-link">Contatti</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Ziod</h1>
+            <p class="hero-tagline">Il mare come stile di vita</p>
+        </div>
+        <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,40 Q300,80 600,40 T1200,40 L1200,120 L0,120 Z" fill="white"></path>
+        </svg>
+    </section>
+
+    <!-- Collezione (Gallery) Section -->
+    <section class="collezione" id="collezione">
+        <div class="container">
+            <h2 class="section-title">Collezione</h2>
+            <p class="section-subtitle">Scopri i nostri ultimi capi, ispirati dallo spirito della costa</p>
+            <div class="gallery" id="gallery">
+                <!-- Images will be loaded here from the clothes/ folder -->
+                <div class="gallery-placeholder">
+                    <p>📸 Prossimamente</p>
+                    <small>Carica le tue foto nella cartella <code>clothes/</code></small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contatti Section -->
+    <section class="contatti" id="contatti">
+        <div class="container">
+            <h2 class="section-title">Contatti</h2>
+            <div class="contatti-grid">
+                <!-- Contact Info -->
+                <div class="contact-card">
+                    <h3>Ziod – Abbigliamento</h3>
+                    <div class="contact-item">
+                        <strong>Proprietario:</strong> Domenico Solino
+                    </div>
+                    <div class="contact-item">
+                        <strong>Email:</strong>
+                        <a href="mailto:domenico.solino@gmail.com">domenico.solino@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Indirizzo:</strong> Via Indipendenza 5, Gaeta
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="map-card">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.0526874267253!2d13.575!3d41.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f5c3f5c3f5c3d%3A0x1234567890abcdef!2sVia%20Indipendenza%205%2C%2004024%20Gaeta%20LT!5e0!3m2!1sit!2sit!4v1234567890123" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 <strong>Ziod</strong> – Abbigliamento. Gaeta, Italia.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightbox-close">&times;</button>
+            <img id="lightbox-img" src="" alt="">
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
